@@ -2,7 +2,7 @@ name: Deploy MultiDocker
 on:
   push:
     branches:
-      - main # check your repo, your default branch might be master!
+      - master # check your repo, your default branch might be master!
 
 jobs:
   build:
@@ -10,15 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t rallycoding/react-test -f ./client/Dockerfile.dev ./client
-      - run: docker run -e CI=true rallycoding/react-test npm test
+      - run: docker build -t paulwhitehand/react-test -f ./client/Dockerfile.dev ./client
+      - run: docker run -e CI=true paulwhitehand/react-test npm test
 
-      - run: docker build -t rallycoding/multi-client ./client
-      - run: docker build -t rallycoding/multi-nginx ./nginx
-      - run: docker build -t rallycoding/multi-server ./server
-      - run: docker build -t rallycoding/multi-worker ./worker
+      - run: docker build -t paulwhitehand/multi-client ./client
+      - run: docker build -t paulwhitehand/multi-nginx ./nginx
+      - run: docker build -t paulwhitehand/multi-server ./server
+      - run: docker build -t paulwhitehand/multi-worker ./worker
 
-      - run: docker push rallycoding/multi-client
-      - run: docker push rallycoding/multi-nginx
-      - run: docker push rallycoding/multi-server
-      - run: docker push rallycoding/multi-worker
+      - run: docker push paulwhitehand/multi-client
+      - run: docker push paulwhitehand/multi-nginx
+      - run: docker push paulwhitehand/multi-server
+      - run: docker push paulwhitehand/multi-worker
